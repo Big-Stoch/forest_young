@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Forest Young | Portfolio',
-  description: 'A living portfolio of research, service, STEM, and music by Forest Young.',
+  title: 'Forest Young | Student Portfolio',
+  description: 'Research, leadership, STEM, music, and service by Forest Young.',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
