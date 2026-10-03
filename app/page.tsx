@@ -3,26 +3,52 @@
 import { useState } from 'react'
 import { ChevronDown, Mail, Menu, X } from 'lucide-react'
 
-const sections = [
-  { id: 'research', label: 'Research', kicker: '01', tone: 'sage', intro: 'Turning complex questions into useful, evidence-based work.', items: [
-    ['NanoVLM', 'Published · 2026', 'A vision-language model for electron microscopy characterization, validated on 12,847 annotated images with 90.2% defect classification accuracy.'],
-    ['Sustainable Olympic Events', 'Published · 2025', 'Built a hybrid AHP, EWM, and Natural Breaks model across 132 years of Olympic history, 47 events, and 987 samples.'],
-    ['Computerpreter', 'Copyright registered · 2026', 'A multimodal ASL translation system using Random Forests, LSTMs, temporal convolutional networks, and Transformers.'],
-  ]},
-  { id: 'leadership', label: 'Leadership & Service', kicker: '02', tone: 'peach', intro: 'Making technical learning and communication more accessible.', items: [
-    ['Salt Lake AI & App Collective', 'Co-Founder & President', 'Built a nationwide student AI education community, organized a 130+ participant workshop, and co-judged a student AI championship.'],
-    ['Frontlines Summer Policy Fellowship', 'Salt Lake City Chapter Director', 'Led outreach and fellow training while authoring a policy brief on AI and rural healthcare equity.'],
-    ['STEM access through ASL', 'Community education', 'Produced four ASL-interpreted STEM laboratory videos and partnered with Sorenson to expand real-world testing.'],
-  ]},
-  { id: 'stem', label: 'STEM Achievements', kicker: '03', tone: 'blue', intro: 'Competing, building, and learning across computer science, math, biology, chemistry, and physics.', items: [
-    ['AI & Computing', 'National and international', 'USAAIO National Bronze Medal; USACO Platinum; Presidential AI Challenge Utah and West Region Champion; CAC National 2nd Place.'],
-    ['iGEM 2025', 'Student Team Leader', 'Led human practices, community outreach, commercialization, and final defenses in Paris. Global First Runner-up and Gold Medal.'],
-    ['Mathematics & Sciences', 'Olympiads and fairs', 'USAMO/USAJMO finalist, AIME qualifier, Physics Bowl Global Tied 1st, USNCO National High Honors, and USEF placements.'],
-  ]},
-  { id: 'creative', label: 'Music & Humanities', kicker: '04', tone: 'lilac', intro: 'A creative practice that keeps my work human, expressive, and connected.', items: [
-    ['Piano', 'National 1st place · MTNA 2025', 'Utah 1st place, Southwest Region 1st place, and National 1st place in piano duet; WPTA International Gold Award.'],
-    ['Languages & culture', 'Chinese and ASL', 'Chinese-language speech honors, ASL Literature Competition 1st place, and Utah ASL State Competition wins.'],
-  ]},
+type Entry = { title: string; meta?: string; body: string[] }
+type Section = { id: string; number: string; label: string; intro: string; entries: Entry[] }
+
+const sections: Section[] = [
+  {
+    id: 'research', number: '01', label: 'Research', intro: 'Published work, manuscripts, and independent systems.', entries: [
+      { title: '“A Multi-Criteria Evaluation of Sustainable Olympic Events”', meta: 'Co-First Author · Published in Transactions on Computer Science and Intelligent Systems Research, Vol. 11 (2025), pp. 534–542 · DOI: 10.62051/pdfee298', body: ['Designed the first hybrid evidence-based decision-support model integrating AHP, EWM, and Natural Breaks to evaluate the sustainability of Olympic events.', 'Constructed a dataset across 132 years of Olympic history, analyzing 47 events, 21 evaluation factors, and 987 samples.'] },
+      { title: '“Vision-Language Large Models for Nanomanufacturing and Electron Microscopy Characterization”', meta: 'Co-First Author · Journal of Nanoelectronics and Optoelectronics, Vol. 21 no. 3 (2026), pp. 238–249 · DOI: 10.1166/jno.2026.3879 · Web of Science SCI-EXPANDED', body: ['Developed NanoVLM, a vision-language reasoning large language model integrating SEM/TEM images with spectral information for cross-modal automated nanomaterial characterization.', 'Validated performance on 12,847 annotated microscopy images, achieving 90.2% defect classification accuracy.'] },
+      { title: 'Computerpreter: AI-Powered ASL Translation System', meta: 'Co-First Author · U.S. Copyright Registration No. TXu 2-561-060 · Registered July 24, 2026', body: ['Developed a multimodal AI-powered ASL translation system in which both hearing and Deaf parties use their natural form of communication.', 'Built a real-time fingerspelling pipeline using Random Forest classifiers, LSTMs, sliding-window decoding, Temporal Convolutional Networks, and Transformers.', 'Tested usability with Deaf signers and accessibility professionals through user-centered evaluation.'] },
+      { title: '“From Risk to Action: Time-Series Prediction of Respiratory Support Requirements in Sepsis”', meta: 'Co-First Author · Under review at BMC Medical Informatics and Decision Making', body: ['Designed a multicenter AI prediction model using over 75,000 ICU records from the MIMIC-IV and eICU databases.', 'Implemented interpretable attention-based LSTM architectures, achieving 78.0% external validation accuracy and a severity-weighted AUC of 0.923.'] },
+      { title: 'Trajectory-based phenotyping of sepsis-associated liver injury', meta: 'Co-First Author · Under review at the International Journal of Medical Informatics', body: ['Co-developed a trajectory-based AI phenotyping pipeline using longitudinal laboratory and vital-sign data from 1,847 ICU patients.', 'Identified and externally validated four reproducible disease subphenotypes and improved 7-day mortality prediction to AUC = 0.791.'] },
+      { title: 'From Trajectories to Transitions: Time-Series Prediction of Respiratory Support', meta: 'Co-First Author · Under review at the International Journal of Medical Informatics', body: ['Co-developed a source-aware Mamba-CRF temporal model using 97,000+ ICU stays from MIMIC-IV, eICU, and SICDB.', 'Built a four-state transition forecasting framework achieving macro AUROC = 0.939 and IMV onset AUPRC = 0.932, providing approximately 9 hours of early warning.'] },
+      { title: 'Cytotoxic-lymphocyte immune imbalance in sepsis', meta: 'Co-First Author · Manuscript preparing for submission to SCI', body: ['Conceived a translational sepsis study integrating single-cell RNA sequencing, transcriptomic profiles, and clinical biomarkers.', 'Connected molecular immune states with bedside neutrophil-to-lymphocyte ratio across approximately 49,600 ICU patients.'] },
+      { title: 'When AI Provides Explanations: Explanatory Cognitive Outsourcing', meta: 'Co-First Author', body: ['Co-developed a theoretical framework examining how AI redistributes explanatory work through explanation production, epistemic authority, and cognitive goals.', 'Surveyed 252 participants and identified an understanding–transfer gap: 87.3% reported higher perceived understanding than transfer confidence.'] },
+      { title: 'Clinically anchored transcriptomic prioritization in triple-negative breast cancer', meta: 'Author', body: ['Evaluated a 31-gene panel through clinical, survival, CRISPR, drug-annotation, and genetic analyses.', 'Developed prognostic models using SEER Plus cases, multiple imputation, bootstrap resamples, and IPCW methods.'] },
+      { title: 'AdaCycle-Fork: Alignment-Adaptive Branching for Multimodal Understanding and Generation', meta: 'Author', body: ['Introduced a unified multimodal model with input-adaptive dynamic forking across shared, understanding, and generation branches.', 'Used bidirectional cyclic consistency learning for strong performance in visual question answering, hallucination mitigation, text-to-image generation, and image editing.'] },
+      { title: 'EndoLook: An Original AI-Powered Robotic Capsule Endoscopy System', meta: 'Independent Researcher', body: ['Proposed an AI-powered robotic capsule integrating Raspberry Pi, embedded sensors, computer vision, wireless communication, and autonomous navigation.', 'Engineered computer-vision and sensor-based navigation for autonomous movement and physician-guided control in simulated gastrointestinal environments.'] },
+    ]
+  },
+  {
+    id: 'leadership', number: '02', label: 'Leadership & Service', intro: 'Building access, community, and opportunity for others.', entries: [
+      { title: 'Salt Lake City Community Chapter Director, Frontlines Summer Policy Fellowship', meta: 'Funded by OpenAI Foundation · 2026', body: ['Conducted interdisciplinary analysis of AI governance, digital literacy, and equitable access to technology.', 'Founded and led the Salt Lake City chapter, organizing outreach and fellow training while authoring a policy brief on AI and rural healthcare equity submitted to Utah Representative Blake Moore and Senator John Curtis.'] },
+      { title: 'Co-Founder & President, Salt Lake AI & App Collective', body: ['Co-founded a nationwide student-led AI education organization providing free training, mentorship, and project-based competitions.', 'Organized the Machine Learning for AI Workshop with 130+ participants, three training sessions, and a Student AI Championship; secured $500 in sponsored awards.', 'Produced four ASL-interpreted STEM laboratory videos, interviewed five STEM competition winners and six researchers, and distributed 100+ copies of the STEM Competition & Research Pathways Guide.', 'Partnered with Sorenson to collect ASL data and expand real-world testing of Computerpreter.'] },
+      { title: 'American Volunteer Service Award (AVSA)', meta: 'Gold Award · 161.5 verified community service hours · Sept. 2025–Aug. 2026', body: [] },
+      { title: 'Ambassador, Congressional App Challenge', meta: '20 hours of Ambassador service', body: ['Expanded STEM access across Utah’s four Congressional Districts by guiding students through registration and submission.', 'Mentored three student teams in developing AI application projects through successful competition submission.'] },
+      { title: 'Ambassador, National Society of High School Scholars', body: ['Supported logistics for 2,000+ attendees at Scholar’s Day 2024 in Atlanta and presented EndoLook.', 'Contributed 80+ volunteer hours to autism advocacy and environmental outreach.', 'Advanced wildfire preparedness through public presentations, a waste-sorting application, and feedback on the FlameFender warning app from local fire departments.'] },
+      { title: 'BigFuture Ambassador, College Board', body: ['Hosted weekly after-school Q&A sessions and advised 15 students on AP planning, registration, and study strategies; nine earned scores of 5 and six earned scores of 4.'] },
+      { title: 'Volunteer, Timpanogos Chamber Music Series', body: ['Performed three free public piano duet concerts for senior-living audiences of 50–100 people, making classical performances more accessible to the elderly.'] },
+      { title: 'Volunteer, Chinese Association for Science and Technology in Utah', body: ['Performed Chinese piano repertoire, led paper-cutting demonstrations, assisted with cultural festival operations, and managed registration and email communications for the Chinese Bridge competition.'] },
+      { title: 'Volunteer, Mt. Olympus Rehabilitation Center', body: ['Performed weekly piano recitals and engaged approximately 30 elderly residents through music and conversation.', 'Supported the annual Halloween Trick-or-Treat event and visitor safety.'] },
+    ]
+  },
+  {
+    id: 'academics', number: '03', label: 'Academics & Projects', intro: 'Competition results and project-based learning across STEM.', entries: [
+      { title: 'Computer Science & AI Competitions', body: ['USA AI Olympiad 2026: National Bronze Medal; Distinguished Honor Roll; Qualified for Round 2.', 'USA Computing Olympiad: Platinum (2026), Gold (2025), Silver (2024).', 'International AI Innovation Olympiad 2026: AI Sciences & Engineering North America 1st place; AI Business 3rd place; Global Finalist at MIT.', 'WAICY 2025: Global 5th place in AI Showcase; Global 4th place in Large Language Model Division.', 'Congressional App Challenge 2025: UT-01 Winner, West Region Winner, CAC Top Apps Winner, National 2nd place at #HouseofCode.', 'Presidential AI Challenge 2026: Utah State Champion and West Region Champion; presented at the White House.', 'AI YES Honor Awards; Amazing Grace Institute Silver Medal; AWS DeepRacer 1st place (2024, 2025); San Ramon Hackathon 3rd and 2nd place; San Diego SAIC Hackathon 2nd place; FutureBridge 3rd place; ACP MetroCode 3rd and 4th place.'] },
+      { title: 'Science and Math Competitions', body: ['iGEM 2025 Student Team Leader: Global First Runner-up, Gold Medal, Global Top 10, Best Village Project, iGEMers’ Prize, Safety and Security Award.', 'USAMO & USAJMO 2025: Finalist. AIME: Qualifier (2024, 2025).', 'Physics Bowl: Global 34th place (2024) and Global Tied 1st (2025).', 'USNCO: National Honors (2025) and National High Honors (2026); National Exam Preparation Program (2024–2026).', 'USABO: Merit Award (2024) and National Finalist (2025).', 'Global Youth Entrepreneurship Challenge 1st place; National STEM Festival Finalist; JSHS recognition, $550 entry award, published abstract, and travel award invitee.', 'Utah Science and Engineering Fair: division placements from 2023–2026, including 1st place and Broadcom Masters selection.'] },
+      { title: 'ASL and scholarship distinctions', body: ['ASLHS Eric “Malz” Malzkuhn ASL Literature Competition: 1st place (2024).', 'Utah High School ASL State Competition — Deaf Culture and History: 1st place (2025, 2026).', 'NSHSS Be More Grant ($1,000), Performing Arts Music Scholarship ($1,000), AUTISM with Luv Michael scholarship, and CarbonCrew scholarship.'] },
+    ]
+  },
+  {
+    id: 'creative', number: '04', label: 'Music & Humanities', intro: 'Performance, language, history, debate, and creative expression.', entries: [
+      { title: 'Honors & Scholarships', body: ['Frontlines Summer Policy Chapter Director scholarship (2026).', 'Coolidge Scholarship Senator (2026).', 'The Knowledge Society 10-month Global Innovation Program Full Scholarship (2024).', 'College Board National Recognition School Award (2025) and AP Scholar with Distinction (2024, 2025, 2026).', 'NSDA Regional Public Forum Debate 3rd place (2024) and National Competition team member (2025, 2026).', 'National History Day Utah Granite School Region Paper Division 1st place (2025).', 'Tim Draper Utah Entrepreneur Challenge: People’s Choice Award and scholarships in 2024 and 2026 3rd place with $3,200 scholarship.', 'Chinese Bridge and Utah Tech University Language Fair Outstanding Award; Utah Chinese Science and Technology Association scholarships and research awards.'] },
+      { title: 'National & International Piano Competition Awards', body: ['MTNA Piano Duet: Utah 1st place (2024), Southwest Region 1st place (2025), National 1st place (2025).', 'WPTA International Piano Competition: Gold Award (2025).', 'American Virtuoso International Music Competition: Chamber Music 1st place (2025); Winner’s Recital at Weill Recital Hall, Carnegie Hall (January 15, 2026).', 'Helen Taylor Johannesen International Piano Festival & Competition: Solo 2nd place and Piano Concerto 2nd place (2024).', 'American West and Utah Symphony Orchestras: Piano Concerto Performer (2023–2024).'] },
+      { title: 'Language Certification — ASL Proficiency', body: ['American Sign Language Functional Assessment Interview 2026: Intermediate High (State Seal of Biliteracy).', 'National AVANT STAMP ASL Assessment 2026: Receptive Advanced Mid; Expressive Advanced Low.'] },
+    ]
+  }
 ]
 
 const headlineAchievements = ['USACO Platinum', 'iGEM Global First Runner-up', 'USAAIO National Bronze', 'MTNA National 1st Place']
@@ -32,35 +58,17 @@ export default function Page() {
   const [open, setOpen] = useState<string | null>('research')
   return <main>
     <header className="topbar">
-      <a className="brand" href="#top"><span>FY</span><div><strong>Forest Young</strong><small>Student portfolio · 2026</small></div></a>
+      <a className="brand" href="#top"><span>FY</span><div><strong>Forest Young</strong><small>Skyline High School · Salt Lake City, Utah</small></div></a>
       <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
-      <nav className={menuOpen ? 'open' : ''} aria-label="Primary navigation">
-        <a href="#highlights" onClick={() => setMenuOpen(false)}>Highlights</a>
-        <a href="#about" onClick={() => setMenuOpen(false)}>About me</a>
-        <a href="#work" onClick={() => setMenuOpen(false)}>Explore work</a>
-      </nav>
+      <nav className={menuOpen ? 'open' : ''} aria-label="Primary navigation"><a href="#highlights" onClick={() => setMenuOpen(false)}>Achievements</a><a href="#about" onClick={() => setMenuOpen(false)}>About me</a><a href="#work" onClick={() => setMenuOpen(false)}>Full portfolio</a></nav>
       <a className="contact" href="mailto:annyniu1970@gmail.com"><Mail /> Say hello</a>
     </header>
 
-    <section className="hero" id="top">
-      <div className="hero-copy">
-        <p className="eyebrow">Student · Researcher · Builder · Musician</p>
-        <h1>Forest Young<span className="period">.</span></h1>
-        <p className="hero-statement">I build things that make difficult ideas more useful, more accessible, and more human.</p>
-        <div className="hero-meta"><span>Skyline High School</span><span>Salt Lake City, Utah</span></div>
-      </div>
-      <div className="achievement-panel" id="highlights">
-        <p className="eyebrow">Start here</p><h2>Selected achievements</h2>
-        <div className="achievement-list">{headlineAchievements.map((achievement, index) => <div className="achievement" key={achievement}><span>0{index + 1}</span><strong>{achievement}</strong></div>)}</div>
-        <a className="panel-link" href="#work">See the full story <ChevronDown /></a>
-      </div>
-    </section>
+    <section className="hero" id="top"><div className="hero-copy"><p className="eyebrow">Student · Researcher · Builder · Musician</p><h1>Forest Young<span className="period">.</span></h1><p className="hero-statement">Research, leadership, STEM, music, and service — with achievements that start the conversation.</p><div className="hero-meta"><span>Skyline High School</span><span>Salt Lake City, Utah</span></div></div><div className="achievement-panel" id="highlights"><p className="eyebrow">Start here</p><h2>Selected achievements</h2><div className="achievement-list">{headlineAchievements.map((achievement, index) => <div className="achievement" key={achievement}><span>0{index + 1}</span><strong>{achievement}</strong></div>)}</div><a className="panel-link" href="#work">Explore the full portfolio <ChevronDown /></a></div></section>
 
-    <section className="about" id="about"><div className="about-label"><p className="eyebrow">About me</p><span>01</span></div><div><h2>Curiosity, made useful.</h2><p>I am a high school student exploring the space where artificial intelligence, science, accessibility, and creative expression meet. My portfolio is organized around the questions I care about and the work I have made in response.</p></div></section>
+    <section className="about" id="about"><div className="about-label"><p className="eyebrow">About me</p><span>01</span></div><div><h2>Curiosity, made useful.</h2><p>I am a high school student exploring the space where artificial intelligence, science, accessibility, and creative expression meet. This portfolio is organized around the questions I care about and the work I have made in response.</p></div></section>
 
-    <section className="work" id="work"><div className="section-intro"><p className="eyebrow">Explore my work</p><h2>Choose a chapter.</h2><p>Open a category to see the projects, competitions, and communities behind each achievement.</p></div><div className="category-list">{sections.map(section => <article className={`category ${section.tone}`} id={section.id} key={section.id}><button className="category-head" onClick={() => setOpen(open === section.id ? null : section.id)} aria-expanded={open === section.id}><span className="category-number">{section.kicker}</span><span className="category-title"><strong>{section.label}</strong><small>{section.intro}</small></span><ChevronDown className={open === section.id ? 'rotated' : ''} /></button>{open === section.id && <div className="category-items">{section.items.map(([title, meta, text]) => <div className="story" key={title}><div><h3>{title}</h3><p className="story-meta">{meta}</p></div><p>{text}</p></div>)}</div>}</article>)}</div></section>
-
+    <section className="work" id="work"><div className="section-intro"><p className="eyebrow">Full portfolio</p><h2>Choose a chapter.</h2><p>Open one of the four categories below. Each achievement expands into a readable, evidence-ready summary.</p></div><div className="category-list">{sections.map(section => <article className={`category ${section.id}`} id={section.id} key={section.id}><button className="category-head" onClick={() => setOpen(open === section.id ? null : section.id)} aria-expanded={open === section.id}><span className="category-number">{section.number}</span><span className="category-title"><strong>{section.label}</strong><small>{section.intro}</small></span><ChevronDown className={open === section.id ? 'rotated' : ''} /></button>{open === section.id && <div className="category-items">{section.entries.map(entry => <details className="story" key={entry.title}><summary><span><h3>{entry.title}</h3>{entry.meta && <p className="story-meta">{entry.meta}</p>}</span><ChevronDown /></summary><div className="story-body">{entry.body.map(line => <p key={line}>{line}</p>)}</div></details>)}</div>}</article>)}</div></section>
     <footer><strong>Forest Young</strong><span>Research · service · STEM · music</span><a href="mailto:annyniu1970@gmail.com">Get in touch</a></footer>
   </main>
 }
-
