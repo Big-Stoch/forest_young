@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client'
 
 import { useState } from 'react'
@@ -71,4 +72,60 @@ export default function Page() {
     <section className="work" id="work"><div className="section-intro"><p className="eyebrow">Full portfolio</p><h2>Choose a chapter.</h2><p>Open one of the four categories below. Each achievement expands into a readable, evidence-ready summary.</p></div><div className="category-list">{sections.map(section => <article className={`category ${section.id}`} id={section.id} key={section.id}><button className="category-head" onClick={() => setOpen(open === section.id ? null : section.id)} aria-expanded={open === section.id}><span className="category-number">{section.number}</span><span className="category-title"><strong>{section.label}</strong><small>{section.intro}</small></span><ChevronDown className={open === section.id ? 'rotated' : ''} /></button>{open === section.id && <div className="category-items">{section.entries.map(entry => <details className="story" key={entry.title}><summary><span><h3>{entry.title}</h3>{entry.meta && <p className="story-meta">{entry.meta}</p>}</span><ChevronDown /></summary><div className="story-body">{entry.body.map(line => <p key={line}>{line}</p>)}</div></details>)}</div>}</article>)}</div></section>
     <footer><strong>Forest Young</strong><span>Research · service · STEM · music</span><a href="mailto:annyniu1970@gmail.com">Get in touch</a></footer>
   </main>
+=======
+import Link from 'next/link'
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
+import { SiteFooter, SiteHeader } from './components/site-header'
+import { portfolioSections } from '../data/portfolio'
+
+const featured: Record<string, string[]> = {
+  research: ['2 published papers', 'AI systems for accessibility, science, and medicine'],
+  leadership: ['130+ students at a nationwide AI workshop', '161.5 verified service hours'],
+  academics: ['USACO Platinum · USAAIO National Bronze', 'iGEM Global First Runner-up'],
+  creative: ['MTNA National Piano Duet 1st place', 'Carnegie Hall Winner’s Recital'],
+}
+
+export default function Home() {
+  return (
+    <main>
+      <SiteHeader />
+      <section className="home-intro" aria-labelledby="home-title">
+        <div>
+          <p className="eyebrow">Student · Researcher · Builder · Musician</p>
+          <h1 id="home-title">Forest Young<span className="accent-dot">.</span></h1>
+          <p className="intro-copy">I explore how research, technology, and creative work can make a difference.</p>
+        </div>
+        <a className="jump-link" href="#achievements">Explore achievements <ArrowDownRight aria-hidden="true" /></a>
+      </section>
+
+      <section className="achievement-overview" id="achievements" aria-labelledby="achievement-title">
+        <div className="overview-heading">
+          <div>
+            <p className="eyebrow">Selected work & recognition</p>
+            <h2 id="achievement-title">Achievements</h2>
+          </div>
+          <Link className="text-link" href="/portfolio">Open the full portfolio <ArrowUpRight aria-hidden="true" /></Link>
+        </div>
+        <div className="achievement-grid">
+          {portfolioSections.map((section) => (
+            <article className={`achievement-card tone-${section.id}`} key={section.id}>
+              <div className="achievement-card-top"><span>{section.number}</span><span className="card-mark" aria-hidden="true">↗</span></div>
+              <h3>{section.label}</h3>
+              <p className="card-intro">{section.intro}</p>
+              <ul>{featured[section.id].map((item) => <li key={item}>{item}</li>)}</ul>
+              <Link href={`/portfolio#${section.id}`} className="card-link">Explore chapter <ArrowUpRight aria-hidden="true" /></Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-note">
+        <p className="eyebrow">A little context</p>
+        <p>From machine learning and biomedical research to piano performance and community service, I like work that connects deep curiosity with real people.</p>
+        <Link className="text-link" href="/about">More about me <ArrowUpRight aria-hidden="true" /></Link>
+      </section>
+      <SiteFooter />
+    </main>
+  )
+>>>>>>> b46af2d (updating my existing website pages)
 }
