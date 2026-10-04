@@ -54,7 +54,7 @@ export default function PortfolioPage() {
               </div>
             </section>
           ))}
-          <p className="portfolio-endnote">Supporting links, images, and documents can be added to each entry as they’re ready.</p>
+          <p className="portfolio-endnote">Supporting links, images, and documents can be added to each entry as they're ready.</p>
           <Link className="text-link portfolio-home-link" href="/">Return to achievements <ArrowUpRight aria-hidden="true" /></Link>
         </article>
       </div>
